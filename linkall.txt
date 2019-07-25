@@ -1,0 +1,5 @@
+configs/bashrc.txt ~/.bashrc link_backup
+configs/tmux_conf.txt ~/.tmux.conf link_backup
+configs/vimrc.txt ~/.vimrc link_backup
+
+

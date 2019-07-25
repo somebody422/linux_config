@@ -1,0 +1,15 @@
+
+# Enable mouse scrolling. Press q to break out of scroll mode
+# shift-click to select with mouse while in scroll mode
+set -g mouse on
+
+# Set | and - as additional bindings for vertical and horizontal split
+bind | split-window -h
+bind - split-window -v
+
+# Uncomment this next part to preserve tmux window names
+#set-option -g allow-rename off
+
+# Don't exit tmux when the session has been quit
+set -g detach-on-destroy off
+
