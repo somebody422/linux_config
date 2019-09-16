@@ -35,6 +35,8 @@ def create_all_links(list_file):
 			if action == "link_backup":
 				backup_file(dst)
 				make_link(src, dst)
+			elif action == "link":
+				make_link(src, dst)
 
 
 

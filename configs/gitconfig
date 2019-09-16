@@ -1,0 +1,35 @@
+; vim:noet ts=8 sw=8
+[user]
+	name = Sam Hedin
+	email = shedin@sporian.com
+[color]
+	ui = auto
+[alias]
+	llog = log --date=local
+	slog = log --oneline --graph
+	sloga = log --oneline --graph --all
+	vdiff = difftool -ydt vim-dirdiff
+	kdiff = difftool -ydt kdiff3
+[log]
+	decorate = true
+[diff]
+	tool = vimdiff
+	mnemonicprefix = true
+[difftool "vim-dirdiff"]
+	cmd = vim -f '+next' '+execute \"DirDiff\" argv(0) argv(1)' $LOCAL $REMOTE '+syntax off'
+	prompt = true
+[difftool]
+	prompt = true
+[icdiff]
+	options = -Nr
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = false
+[push]
+	default = simple
+[branch]
+	autosetuprebase = always
+[heads]
+	dfltargs = -a -b --author-date-order \"--format=format:%C(auto)%ad %h%d\"

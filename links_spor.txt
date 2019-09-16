@@ -1,0 +1,6 @@
+configs/bashrc_spor ~/.bashrc link
+configs/tmux.conf ~/.tmux.conf link
+configs/vimrc ~/.vimrc link
+configs/gitconfig ~/.gitconfig link
+
+
