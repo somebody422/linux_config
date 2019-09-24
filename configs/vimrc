@@ -9,6 +9,8 @@ set shell=/bin/bash
 " Allow windows to unsaved buffers to be closed
 set hidden
 
+" A setting i don't understand but it keeps vim from messing with tmux while letting me use mouse in vim
+set ttymouse=xterm2
 set mouse=a
 
 " Disable swap files because they are annoying. A better solution might be to make a swap file directory in the home dir or something
@@ -35,6 +37,11 @@ set shiftwidth=2 tabstop=2 expandtab
 set smartindent
 "set tabstop=3 noexpandtab
 
+" Line numbers
+set number
+
+" No smartindent for python
+au! FileType python setl nosmartindent
 
 
 "====    My  mapping changes:    ====
