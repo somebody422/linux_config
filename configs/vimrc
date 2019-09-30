@@ -32,6 +32,11 @@ hi StatusLine ctermbg=White ctermfg=DarkGrey
 highlight ColorColumn ctermbg=grey
 call matchadd('ColorColumn', '\%80v', 100)
 
+" Put a line under the cursor
+set cursorline
+" Bold the line number
+"hi cursorLineNR cterm=bold
+
 " I am a Company Man who uses spaces instead of tabs
 set shiftwidth=2 tabstop=2 expandtab
 set smartindent
