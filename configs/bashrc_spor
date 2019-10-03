@@ -256,4 +256,8 @@ export MANPATH=/usr/local/share/man:/usr/share/man:~/.local/share/man
 
 alias py2env='source /home/shedin/code/py2_venv/bin/activate'
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 . ~/linux_config/z-master/z.sh
+. ~/linux_config/fz-master/fz.sh
+
+

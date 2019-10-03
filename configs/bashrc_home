@@ -35,6 +35,18 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+# Set the correct TERM value when running gnome-terminal
+# (this seems to break the pager)
+if [[ $TERM == xterm && ( $COLORTERM == gnome* || $COLORTERM == xfce4-terminal ) ]]; then
+  export TERM=xterm-256color
+fi
+
+# Set the correct TERM value when running st.  st supports true color, but with
+# vim termguicolors option doesn't work with st unless TERM is changed.
+if [[ $TERM == st-256color ]]; then
+    export TERM=xterm-256color
+fi
+
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
@@ -57,20 +69,46 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    _PS1='\[\033[4m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]'
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    _PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w'
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    _PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\007\]$_PS1"
     ;;
 *)
     ;;
 esac
+
+# Add current VIRTUAL_ENV to the prompt.  man virtualenv
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+_PS1='${VIRTUAL_ENV:+(${VIRTUAL_ENV##*/}) }'$_PS1
+
+# Add git info to the command line, if applicable
+GIT_SH_PROMPT=~/.git-sh-prompt
+[ ! -f $GIT_SH_PROMPT ] && GIT_SH_PROMPT=/usr/lib/git-core/git-sh-prompt
+[ ! -f $GIT_SH_PROMPT ] && GIT_SH_PROMPT=/usr/share/git/git-prompt.sh
+if [ -f $GIT_SH_PROMPT ]; then
+  . $GIT_SH_PROMPT
+  export GIT_PS1_SHOWDIRTYSTATE=1
+  export GIT_PS1_SHOWUNTRACKEDFILES=1
+  export GIT_PS1_SHOWCOLORHINTS=1
+  PROMPT_COMMAND='printf "\a" && __git_ps1 "$_PS1" "\\\$ "'
+fi
+
+# Initialize PS1 for shells that don't use PROMPT_COMMAND
+if [ -f $GIT_SH_PROMPT ]; then
+    PS1="$_PS1$(__git_ps1)\$ "
+else
+    PS1="$_PS1\$ "
+fi
+
+# Limit the length of prompt consumed by \w or \W substitution
+PROMPT_DIRTRIM=3
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -85,7 +123,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -115,9 +153,111 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# ---- Customizations WRT default Ubuntu 16.04 .bashrc ----
+
+# Use vim as default editor
+if [ -x /usr/bin/vim ]; then
+    export EDITOR=/usr/bin/vim
+    alias vi='vim'
+    alias view='vim -R'
+elif [ -x /usr/bin/vi ]; then
+    export EDITOR=/usr/bin/vi
+fi
+
+# Autojump
+if [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]]; then
+    . $HOME/.autojump/etc/profile.d/autojump.sh
+elif [ -f /usr/share/autojump/autojump.bash ]; then
+    . /usr/share/autojump/autojump.bash
+fi
+
+# Colorize diff and preserve colors in less input.  apt-get install colordiff
+# Rather than setting LESS=-R, use an alias.  Setting LESS forces git diff to
+# always page even if there is nothing to show otherwise.
+[ -x /usr/bin/colordiff ] && alias diff='colordiff'
+alias less='less -R'
+
+# VIM-like history and command edit for bash
+set -o vi
+
+# For GnuPG
 export GPG_TTY=$(tty)
 
-#### sph changes
-export PATH=/home/shedin/bin:$PATH
+# Make bash ctrl-w work more like vim.
+stty werase undef
+bind '\C-w:unix-filename-rubout'
+
+# ---- Misc environmental support ----
+
+# Wedge mkbuild awareness into bash completion for the make command
+if [ -f /usr/share/bash-completion/completions/make ]; then
+    . /usr/share/bash-completion/completions/make
+
+    _mkbuild()
+    {
+        local cur prev
+        COMPREPLY=()
+        cur="${COMP_WORDS[COMP_CWORD]}"
+        prev="${COMP_WORDS[COMP_CWORD-1]}"
+        case "${prev}" in
+            make)
+                local targets=$(make list-platforms)
+                COMPREPLY=( $( compgen -W '${targets}' -- $cur ) )
+                return 0
+                ;;
+            *)
+                local extras='all program debug'
+                COMPREPLY=( $( compgen -W '${extras}' -- $cur ) )
+                return 0
+                ;;
+        esac
+    }
+
+    _newmake()
+    {
+        if [ -f extrefs ]; then
+            _mkbuild
+        else
+            _make
+        fi
+    }
+
+    complete -r make
+    complete -F _newmake make
+fi
+
+# Support PASS extensions
+export PASSWORD_STORE_ENABLE_EXTENSIONS=true
+
+# Most terminals support color schemes.  Tested with xterm and st.
+[ -n "$PS1" ] && [ -s $HOME/.config/base16-shell/colorscheme.sh ] \
+    && . $HOME/.config/base16-shell/colorscheme.sh
+
+# Tab completion for git-icdiff
+if which git-icdiff >/dev/null 2>&1; then
+_git_icdiff()
+{
+    __gitcomp_nl "$(__git_refs)"
+}
+fi
+
+# Alias to use as a prefix for git commands when working with dotfiles.
+# Also useful is `dfc bash`, or `dfc vim` to use vim-fugitive.
+alias dfc='GIT_DIR=$HOME/.dotfiles.git'
+
+# Add user's bin dir to end of PATH, removing all pre-existing occurrences that
+# may have been added by earlier scripts (.xession, /etc/profile, etc.).
+PATH=${PATH//$HOME\/.local\/bin:}
+export PATH=${PATH//:$HOME\/.local\/bin}:$HOME/.local/bin
+
+# Support for man pages for user specific programs
+export MANPATH=/usr/local/share/man:/usr/share/man:~/.local/share/man
+
 alias py2env='source /home/shedin/code/py2_venv/bin/activate'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+. ~/linux_config/z-master/z.sh
+. ~/linux_config/fz-master/fz.sh
+
 
