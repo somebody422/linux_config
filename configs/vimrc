@@ -39,7 +39,8 @@ set cursorline
 
 " I am a Company Man who uses spaces instead of tabs
 set shiftwidth=2 tabstop=2 expandtab
-set smartindent
+"set smartindent
+set autoindent
 "set tabstop=3 noexpandtab
 
 " Line numbers

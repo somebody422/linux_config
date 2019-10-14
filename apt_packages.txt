@@ -1,0 +1,8 @@
+# To install all packages here, run following command:
+# sudo apt install -y $(cat dependencies.txt)
+
+git
+fzf
+vim
+tmux
+
