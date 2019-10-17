@@ -5,7 +5,6 @@
 
 set shell=/bin/bash
 
-
 " Allow windows to unsaved buffers to be closed
 set hidden
 
@@ -46,9 +45,12 @@ set autoindent
 " Line numbers
 set number
 
-" No smartindent for python
-au! FileType python setl nosmartindent
-
+" Show trailing whitespace
+"if &termencoding ==# 'utf-8' || &encoding ==# 'utf-8'
+"let &listchars = "tab:»·,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
+let &listchars = "tab:»·,trail:\u2423"
+set list
+"endif
 
 "====    My  mapping changes:    ====
 " * the 'hjkl' movement keys are shifted to 'jkl;'
