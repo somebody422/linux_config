@@ -97,7 +97,7 @@ if [ -f $GIT_SH_PROMPT ]; then
   export GIT_PS1_SHOWDIRTYSTATE=1
   export GIT_PS1_SHOWUNTRACKEDFILES=1
   export GIT_PS1_SHOWCOLORHINTS=1
-  PROMPT_COMMAND='printf "\a" && __git_ps1 "$_PS1" "\\\$ "'
+  PROMPT_COMMAND='printf "\n\a" && __git_ps1 "$_PS1" "\\n$ "'
 fi
 
 # Initialize PS1 for shells that don't use PROMPT_COMMAND
@@ -260,5 +260,22 @@ alias py2env='source /home/shedin/code/py2_venv/bin/activate'
 . ~/linux_config/z-master/z.sh
 . ~/linux_config/fz-master/fz.sh
 
-# Shell only exists after the 10th consecutive Ctrl-d 
-IGNOREEOF=10
+# Shell only exists after the n-th consecutive Ctrl-d
+IGNOREEOF=4
+
+alias one='echo 1'
+alias zero='echo 0'
+
+alias please='sudo $(fc -ln -1)'
+
+# Shortcut to source bin/activate of a python virtualenv
+# "Venv ACtivate"
+vac() {
+  source ${1}/bin/activate
+}
+
+# set and export FIIN_PREFIX
+setfp() {
+  export FIIN_PREFIX=$(readlink -f $1);
+}
+

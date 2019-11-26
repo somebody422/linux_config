@@ -52,6 +52,22 @@ let &listchars = "tab:»·,trail:\u2423"
 set list
 "endif
 
+" Increase height of CtrlP search window
+let g:ctrlp_match_window = 'min:1,max:55'
+
+" Use vim pwd as root dir to search from in CtrlP
+let g:ctrlp_working_path_mode = 0
+
+" ctags configuration. From vim help:
+"When a tag file name starts with "./", the '.' is replaced with the path of
+"the current file.  This makes it possible to use a tags file in the directory
+"where the current file is (no matter what the current directory is).  The idea
+"of using "./" is that you can define which tag file is searched first: In the
+"current directory ("tags,./tags") or in the directory of the current file
+"("./tags,tags").
+" This is set up to use root tags file, or look for "build" in hyper
+set tags=tags,**/build/*/tags
+
 "====    My  mapping changes:    ====
 " * the 'hjkl' movement keys are shifted to 'jkl;'
 " * <C-k> and <C-l> scroll up and down the page
@@ -119,5 +135,4 @@ autocmd VimEnter * nnoremap <C-p> <C-w>l
 
 " Horizontal split
 nnoremap <C-w>h <C-w>s
-
 
