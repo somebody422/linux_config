@@ -3,6 +3,17 @@
 "color ron
 "syntax on
 
+" Change leader key
+nnoremap <SPACE> <Nop>
+let mapleader = " "
+
+" Plugins directory
+"set runtimepath^=~/linux_config/vim/bundle/ctrlp.vim
+"set runtimepath=~/linux_config.runtimepath
+"execute 'set runtimepath = ~/linux_config/vim' . '&runtimepath'
+set runtimepath+=~/linux_config/vim
+set runtimepath+=~/linux_config/vim/bundle/ctrlp.vim
+
 set shell=/bin/bash
 
 " Allow windows to unsaved buffers to be closed
@@ -17,10 +28,6 @@ set noswapfile
 
 " Disable read-only: This is to prevent vimdiff from opening in readonly mode
 set noro
-
-" Plugins directory
-set runtimepath^=~/linux_config/vim/bundle/ctrlp.vim
-"set runtimepath=~/linux_config/vim
 
 " Status line
 set laststatus=2  " Always show status line
@@ -54,9 +61,10 @@ set list
 
 " Increase height of CtrlP search window
 let g:ctrlp_match_window = 'min:1,max:55'
-
 " Use vim pwd as root dir to search from in CtrlP
 let g:ctrlp_working_path_mode = 0
+" When using <C-z> and <C-o> to open multiple files, open them in background
+let g:ctrlp_open_multiple_files = 'i'
 
 " ctags configuration. From vim help:
 "When a tag file name starts with "./", the '.' is replaced with the path of
@@ -72,7 +80,7 @@ set tags=tags,**/build/*/tags
 " * the 'hjkl' movement keys are shifted to 'jkl;'
 " * <C-k> and <C-l> scroll up and down the page
 " * 9 moves cursor to beginning of the line
-" * 'e' moves forward a word and 'w' moves back a word. I don't worry about start/end word boundries
+" * '<Leader>e' moves forward a word and 'w' moves back a word. I don't worry about start/end word boundries
 " * 'b' Does ":ls" then ":b " for faster buffer switching
 " * <C-a> moves back 1/2 screen
 " * <C-m>, <C-n> and <C-b> are cnext, cprevious, and copen, respectively
@@ -101,7 +109,7 @@ vnoremap h ;
 nnoremap <CR> O
 
 " netrw
-nnoremap <C-e> :Ex<CR>
+nnoremap <Leader>e :Ex<CR>
 
 " ctrlp
 nnoremap b :CtrlPBuffer<CR>

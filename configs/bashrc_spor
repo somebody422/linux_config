@@ -266,6 +266,21 @@ IGNOREEOF=4
 alias one='echo 1'
 alias zero='echo 0'
 
+alias gpush='git push'
+alias gcheckout='git checkout'
+alias gfetch='git fetch'
+alias gpull='git pull'
+alias gadd='git add'
+alias glog='git log'
+alias gcommit='git commit'
+alias glog='git log'
+alias gslog='git slog'
+alias gsloga='git sloga'
+alias gstatus='git status'
+alias gdiff='git diff'
+alias gbranch='git branch'
+#alias g='git '
+
 alias please='sudo $(fc -ln -1)'
 
 # Shortcut to source bin/activate of a python virtualenv
@@ -278,4 +293,9 @@ vac() {
 setfp() {
   export FIIN_PREFIX=$(readlink -f $1);
 }
+
+# binding for moving around the command line
+bind '"\C-j": backward-word'
+bind '"\C-k": kill-word'
+bind '"\C-l": forward-word'
 
