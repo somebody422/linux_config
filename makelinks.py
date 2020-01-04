@@ -14,7 +14,7 @@ def backup_file(backup_path):
 
 def make_link(src, dst):
 	print("Making link from {0} to {1}".format(src, dst))
-	if path.exists(dst):
+	if path.exists(dst) or path.islink(dst):
 		os.remove(dst)
 	os.symlink(path.join(os.getcwd(), src), dst)
 
