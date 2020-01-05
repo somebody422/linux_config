@@ -203,6 +203,8 @@ alias py2env='source /home/shedin/code/py2_venv/bin/activate'
 # Shell only exists after the n-th consecutive Ctrl-d
 IGNOREEOF=4
 
+alias nv='nvim'
+
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
