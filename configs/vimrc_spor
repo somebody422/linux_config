@@ -1,0 +1,115 @@
+
+" Do i need this?
+"color ron
+"syntax on
+
+set shell=/bin/bash
+
+
+" Allow windows to unsaved buffers to be closed
+set hidden
+
+" A setting i don't understand but it keeps vim from messing with tmux while letting me use mouse in vim
+set ttymouse=xterm2
+set mouse=a
+
+" Disable swap files because they are annoying. A better solution might be to make a swap file directory in the home dir or something
+set noswapfile
+
+" Disable read-only: This is to prevent vimdiff from opening in readonly mode
+set noro
+
+" Plugins directory
+set runtimepath^=~/linux_config/vim/bundle/ctrlp.vim
+"set runtimepath=~/linux_config/vim
+
+" Status line
+set laststatus=2  " Always show status line
+hi StatusLine ctermbg=White ctermfg=DarkGrey
+
+" Line length: Highlight 80th character on the line
+"set colorcolumn=80
+highlight ColorColumn ctermbg=grey
+call matchadd('ColorColumn', '\%80v', 100)
+
+" I am a Company Man who uses spaces instead of tabs
+set shiftwidth=2 tabstop=2 expandtab
+set smartindent
+"set tabstop=3 noexpandtab
+
+" Line numbers
+set number
+
+" No smartindent for python
+au! FileType python setl nosmartindent
+
+
+"====    My  mapping changes:    ====
+" * the 'hjkl' movement keys are shifted to 'jkl;'
+" * <C-k> and <C-l> scroll up and down the page
+" * 9 moves cursor to beginning of the line
+" * 'e' moves forward a word and 'w' moves back a word. I don't worry about start/end word boundries
+" * 'b' Does ":ls" then ":b " for faster buffer switching
+" * <C-a> moves back 1/2 screen
+" * <C-m>, <C-n> and <C-b> are cnext, cprevious, and copen, respectively
+"====  --------------------------------  ====
+
+" Make vimdiff colors not awful
+hi DiffAdd ctermbg=White ctermfg=22 cterm=reverse
+hi DiffChange ctermbg=White ctermfg=57 cterm=reverse
+hi DiffDelete ctermbg=White ctermfg=160 cterm=reverse
+hi DiffText ctermbg=White ctermfg=Black cterm=reverse
+
+" I prefer jkl; for moving the cursor
+nnoremap ; l
+nnoremap l k
+nnoremap k j
+nnoremap j h
+nnoremap h ;
+" Visual mode movement jkl; remaps:
+vnoremap ; l
+vnoremap l k
+vnoremap k j
+vnoremap j h
+vnoremap h ;
+
+" Insert newline without going to insert mode
+nnoremap <CR> O
+
+" netrw
+nnoremap <C-e> :Ex<CR>
+
+" ctrlp
+nnoremap b :CtrlPBuffer<CR>
+nnoremap h :CtrlP<CR>
+" Shortcut for switching buffers
+"nnoremap b :ls<CR>:b 
+
+" Some convenient buffer scrolling
+nnoremap <C-k> 6<C-e>
+nnoremap <C-l> 6<C-y>
+" C-d is move up half screen, C-a is move down
+nnoremap <C-a> <C-u>
+
+" quick-fix window
+nnoremap <C-n> :cnext<CR>
+nnoremap <C-m> :cprevious<CR>
+nnoremap <C-b> :copen<CR>
+
+nnoremap w b
+
+nnoremap 9 $
+vnoremap 9 $
+
+" Moving between panes with C-u - C-p
+nnoremap <C-u> <C-w>h
+nnoremap <C-i> <C-w>j
+nnoremap <C-o> <C-w>k
+" A bit of a hack because CtrlP will rebind <C-p> after vimrc. This will set
+"   the key binding after plugins load
+autocmd VimEnter * nnoremap <C-p> <C-w>l
+
+" Horizontal split
+nnoremap <C-w>h <C-w>s
+
+

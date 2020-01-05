@@ -8,6 +8,7 @@ case $- in
       *) return;;
 esac
 
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -97,7 +98,7 @@ if [ -f $GIT_SH_PROMPT ]; then
   export GIT_PS1_SHOWDIRTYSTATE=1
   export GIT_PS1_SHOWUNTRACKEDFILES=1
   export GIT_PS1_SHOWCOLORHINTS=1
-  PROMPT_COMMAND='printf "\a" && __git_ps1 "$_PS1" "\\\$ "'
+  PROMPT_COMMAND='printf "\n\a" && __git_ps1 "$_PS1" "\\n$ "'
 fi
 
 # Initialize PS1 for shells that don't use PROMPT_COMMAND
@@ -125,15 +126,6 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -157,10 +149,10 @@ fi
 # ---- Customizations WRT default Ubuntu 16.04 .bashrc ----
 
 # Use vim as default editor
-if [ -x /usr/bin/vim ]; then
+if [ -x /usr/bin/nvim ]; then
+    export EDITOR=/usr/bin/nvim
+elif [ -x /usr/bin/vim ]; then
     export EDITOR=/usr/bin/vim
-    alias vi='vim'
-    alias view='vim -R'
 elif [ -x /usr/bin/vi ]; then
     export EDITOR=/usr/bin/vi
 fi
@@ -177,58 +169,6 @@ fi
 # always page even if there is nothing to show otherwise.
 [ -x /usr/bin/colordiff ] && alias diff='colordiff'
 alias less='less -R'
-
-# VIM-like history and command edit for bash
-set -o vi
-
-# For GnuPG
-export GPG_TTY=$(tty)
-
-# Make bash ctrl-w work more like vim.
-stty werase undef
-bind '\C-w:unix-filename-rubout'
-
-# ---- Misc environmental support ----
-
-# Wedge mkbuild awareness into bash completion for the make command
-if [ -f /usr/share/bash-completion/completions/make ]; then
-    . /usr/share/bash-completion/completions/make
-
-    _mkbuild()
-    {
-        local cur prev
-        COMPREPLY=()
-        cur="${COMP_WORDS[COMP_CWORD]}"
-        prev="${COMP_WORDS[COMP_CWORD-1]}"
-        case "${prev}" in
-            make)
-                local targets=$(make list-platforms)
-                COMPREPLY=( $( compgen -W '${targets}' -- $cur ) )
-                return 0
-                ;;
-            *)
-                local extras='all program debug'
-                COMPREPLY=( $( compgen -W '${extras}' -- $cur ) )
-                return 0
-                ;;
-        esac
-    }
-
-    _newmake()
-    {
-        if [ -f extrefs ]; then
-            _mkbuild
-        else
-            _make
-        fi
-    }
-
-    complete -r make
-    complete -F _newmake make
-fi
-
-# Support PASS extensions
-export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 
 # Most terminals support color schemes.  Tested with xterm and st.
 [ -n "$PS1" ] && [ -s $HOME/.config/base16-shell/colorscheme.sh ] \
@@ -260,4 +200,46 @@ alias py2env='source /home/shedin/code/py2_venv/bin/activate'
 . ~/linux_config/z-master/z.sh
 . ~/linux_config/fz-master/fz.sh
 
+# Shell only exists after the n-th consecutive Ctrl-d
+IGNOREEOF=4
+
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias one='echo 1'
+alias zero='echo 0'
+
+alias gpush='git push'
+alias gcheckout='git checkout'
+alias gfetch='git fetch'
+alias gpull='git pull'
+alias gadd='git add'
+alias glog='git log'
+alias gcommit='git commit'
+alias glog='git log'
+alias gslog='git slog'
+alias gsloga='git sloga'
+alias gstatus='git status'
+alias gdiff='git diff'
+alias gbranch='git branch'
+#alias g='git '
+
+alias please='sudo $(fc -ln -1)'
+
+# Shortcut to source bin/activate of a python virtualenv
+# "Venv ACtivate"
+vac() {
+  source ${1}/bin/activate
+}
+
+# set and export FIIN_PREFIX
+setfp() {
+  export FIIN_PREFIX=$(readlink -f $1);
+}
+
+# binding for moving around the command line
+bind '"\C-j": backward-word'
+bind '"\C-k": kill-word'
+bind '"\C-l": forward-word'
 
