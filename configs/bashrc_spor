@@ -2,7 +2,7 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-source ~/linux_config/
+source ~/linux_config/configs/bashrc_base
 
 # For GnuPG
 export GPG_TTY=$(tty)
