@@ -5,6 +5,9 @@
 "syntax on
 
 " Plugins
+" For now, the linux_config stuff assumes that it is directly in the home
+" directory, and is named 'linux_config'. Allowing a different path/name
+" would be a good future improvement
 set runtimepath+=~/linux_config/ctrlp
 
 " Change leader key
@@ -140,4 +143,8 @@ autocmd VimEnter * nnoremap <C-p> <C-w>l
 
 " Horizontal split
 nnoremap <C-w>h <C-w>s
+
+" When already in normal mode, 'esc' will call 'noh' (no highlighting), which
+" clears the last highlight
+nnoremap <esc> :noh<CR><esc>
 
