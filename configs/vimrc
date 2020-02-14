@@ -1,4 +1,4 @@
-""" A vim init file for vim and nvim
+""" An init file for vim and nvim
 
 " Do i need this?
 "color ron
@@ -8,7 +8,8 @@
 " For now, the linux_config stuff assumes that it is directly in the home
 " directory, and is named 'linux_config'. Allowing a different path/name
 " would be a good future improvement
-set runtimepath+=~/linux_config/ctrlp
+set runtimepath+=~/linux_config/vim-plugins/ctrlp
+set runtimepath+=~/linux_config/vim-plugins/vim-fugitive-3.2
 
 " Change leader key
 nnoremap <SPACE> <Nop>
@@ -120,8 +121,11 @@ nnoremap h :CtrlP<CR>
 " Some convenient buffer scrolling
 nnoremap <C-k> 6<C-e>
 nnoremap <C-l> 6<C-y>
+vnoremap <C-k> 6<C-e>
+vnoremap <C-l> 6<C-y>
 " C-d is move up half screen, C-a is move down
 nnoremap <C-a> <C-u>
+vnoremap <C-a> <C-u>
 
 " quick-fix window
 nnoremap <C-n> :cnext<CR>
