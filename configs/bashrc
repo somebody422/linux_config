@@ -175,16 +175,12 @@ alias less='less -R'
     && . $HOME/.config/base16-shell/colorscheme.sh
 
 # Tab completion for git-icdiff
-if which git-icdiff >/dev/null 2>&1; then
-_git_icdiff()
-{
-    __gitcomp_nl "$(__git_refs)"
-}
-fi
-
-# Alias to use as a prefix for git commands when working with dotfiles.
-# Also useful is `dfc bash`, or `dfc vim` to use vim-fugitive.
-alias dfc='GIT_DIR=$HOME/.dotfiles.git'
+#if which git-icdiff >/dev/null 2>&1; then
+#_git_icdiff()
+#{
+#    __gitcomp_nl "$(__git_refs)"
+#}
+#fi
 
 # Add user's bin dir to end of PATH, removing all pre-existing occurrences that
 # may have been added by earlier scripts (.xession, /etc/profile, etc.).
@@ -193,12 +189,6 @@ export PATH=${PATH//:$HOME\/.local\/bin}:$HOME/.local/bin
 
 # Support for man pages for user specific programs
 export MANPATH=/usr/local/share/man:/usr/share/man:~/.local/share/man
-
-alias py2env='source /home/shedin/code/py2_venv/bin/activate'
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-. ~/linux_config/z-master/z.sh
-. ~/linux_config/fz-master/fz.sh
 
 # Shell only exists after the n-th consecutive Ctrl-d
 IGNOREEOF=4
@@ -254,3 +244,4 @@ bind '"\C-j": backward-word'
 bind '"\C-k": kill-word'
 bind '"\C-l": forward-word'
 
+#[ -d /data ] && cd /data

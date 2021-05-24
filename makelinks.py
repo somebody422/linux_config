@@ -30,7 +30,7 @@ def create_all_links(list_file):
 				continue
 			src = path.expanduser(src)
 			dst = path.expanduser(dst)
-			print("\nsrc, dst, action =", src, dst, action)
+			#print("\nsrc, dst, action =", src, dst, action)
 			
 			if action == "link_backup":
 				backup_file(dst)

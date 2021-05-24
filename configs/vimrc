@@ -2,14 +2,15 @@
 
 " Do i need this?
 "color ron
-"syntax on
+syntax on
 
 " Plugins
 " For now, the linux_config stuff assumes that it is directly in the home
 " directory, and is named 'linux_config'. Allowing a different path/name
 " would be a good future improvement
-set runtimepath+=~/linux_config/vim-plugins/ctrlp
-set runtimepath+=~/linux_config/vim-plugins/vim-fugitive-3.2
+"set runtimepath+=~/linux_config/vim-plugins/ctrlp
+set runtimepath+=/data/linux_config/vim-plugins/ctrlp
+"set runtimepath+=~/linux_config/vim-plugins/vim-fugitive-3.2
 
 " Change leader key
 nnoremap <SPACE> <Nop>
@@ -151,4 +152,13 @@ nnoremap <C-w>h <C-w>s
 " When already in normal mode, 'esc' will call 'noh' (no highlighting), which
 " clears the last highlight
 nnoremap <esc> :noh<CR><esc>
+
+
+"" A hacky fix found here: https://stackoverflow.com/questions/51388353/vim-changes-into-replace-mode-on-startup
+"" DONT push this!!
+" FIX: ssh from wsl starting with REPLACE mode
+" https://stackoverflow.com/a/11940894
+if $TERM =~ 'xterm-256color'
+  set noek
+endif
 
