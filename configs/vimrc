@@ -2,6 +2,8 @@
 
 syntax on
 
+" linux_config vim runtimepath
+set runtimepath+=/data/linux_config/vim
 " Plugins
 set runtimepath+=/data/linux_config/vim-plugins/ctrlp
 
