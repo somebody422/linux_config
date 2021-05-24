@@ -1,16 +1,9 @@
 """ An init file for vim and nvim
 
-" Do i need this?
-"color ron
 syntax on
 
 " Plugins
-" For now, the linux_config stuff assumes that it is directly in the home
-" directory, and is named 'linux_config'. Allowing a different path/name
-" would be a good future improvement
-"set runtimepath+=~/linux_config/vim-plugins/ctrlp
 set runtimepath+=/data/linux_config/vim-plugins/ctrlp
-"set runtimepath+=~/linux_config/vim-plugins/vim-fugitive-3.2
 
 " Change leader key
 nnoremap <SPACE> <Nop>
