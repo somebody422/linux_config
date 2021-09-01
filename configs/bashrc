@@ -224,6 +224,8 @@ alias gcherry-pick='git cherry-pick'
 alias gclone='git clone'
 alias gremote='git remote'
 alias gtag='git tag'
+alias gsubmodule='git submodule'
+alias gsub='git submodule'
 #alias g='git '
 
 alias please='sudo $(fc -ln -1)'
@@ -244,4 +246,3 @@ bind '"\C-j": backward-word'
 bind '"\C-k": kill-word'
 bind '"\C-l": forward-word'
 
-#[ -d /data ] && cd /data

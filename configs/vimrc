@@ -37,6 +37,7 @@ call matchadd('ColorColumn', '\%80v', 100)
 
 " Put a line under the cursor
 set cursorline
+set cursorcolumn
 " Bold the line number
 "hi cursorLineNR cterm=bold
 
