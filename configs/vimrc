@@ -82,6 +82,7 @@ set tags=tags,**/build/*/tags
 " * 'b' is CtrlP buffer mode, 'h' is CtrlP search
 " * <C-a> moves back 1/2 screen
 " * <C-m>, <C-n> and <C-b> are cnext, cprevious, and copen, respectively
+" * Q to enter Ex mode is disabled
 "====  --------------------------------  ====
 
 " Make vimdiff colors not awful
@@ -105,6 +106,9 @@ vnoremap h ;
 
 " Insert newline without going to insert mode
 nnoremap <CR> O
+
+" Disable "Ex" mode
+map Q <nop>
 
 " netrw
 nnoremap <Leader>e :Ex<CR>
