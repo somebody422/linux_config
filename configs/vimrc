@@ -32,12 +32,13 @@ hi StatusLine ctermbg=White ctermfg=DarkGrey
 
 " Line length: Highlight 80th character on the line
 "set colorcolumn=80
-highlight ColorColumn ctermbg=grey
+hi ColorColumn ctermbg=LightGrey ctermfg=White
 call matchadd('ColorColumn', '\%80v', 100)
 
 " Put a line under the cursor
 set cursorline
 set cursorcolumn
+hi CursorColumn ctermbg=darkgrey ctermfg=white
 " Bold the line number
 "hi cursorLineNR cterm=bold
 
