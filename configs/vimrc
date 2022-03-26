@@ -3,9 +3,9 @@
 syntax on
 
 " linux_config vim runtimepath
-set runtimepath+=/data/linux_config/vim
+set runtimepath+=~/linux_config/vim
 " Plugins
-set runtimepath+=/data/linux_config/vim-plugins/ctrlp
+set runtimepath+=~/linux_config/vim-plugins/ctrlp
 
 " Change leader key
 nnoremap <SPACE> <Nop>
@@ -64,6 +64,8 @@ let g:ctrlp_match_window = 'min:1,max:55'
 let g:ctrlp_working_path_mode = 0
 " When using <C-z> and <C-o> to open multiple files, open them in background
 let g:ctrlp_open_multiple_files = 'i'
+" Regex paths to ignore
+let g:ctrlp_custom_ignore = 'venv/'
 
 " ctags configuration. From vim help:
 "When a tag file name starts with "./", the '.' is replaced with the path of
