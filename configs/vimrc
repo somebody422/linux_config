@@ -31,14 +31,13 @@ set laststatus=2  " Always show status line
 hi StatusLine ctermbg=White ctermfg=DarkGrey
 
 " Line length: Highlight 80th character on the line
-"set colorcolumn=80
-hi ColorColumn ctermbg=LightGrey ctermfg=White
-call matchadd('ColorColumn', '\%80v', 100)
+"hi ColorColumn ctermbg=LightGrey ctermfg=White
+"call matchadd('ColorColumn', '\%80v', 100)
 
 " Put a line under the cursor
 set cursorline
 set cursorcolumn
-hi CursorColumn ctermbg=darkgrey ctermfg=white
+hi CursorColumn ctermbg=lightgrey ctermfg=black
 " Bold the line number
 "hi cursorLineNR cterm=bold
 
