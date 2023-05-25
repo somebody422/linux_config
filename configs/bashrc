@@ -48,33 +48,7 @@ if [[ $TERM == st-256color ]]; then
     export TERM=xterm-256color
 fi
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
-if [ "$color_prompt" = yes ]; then
-    _PS1='\[\033[4m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]'
-else
-    _PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w'
-fi
-unset color_prompt force_color_prompt
+_PS1='\[\033[4m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]$(ret=$?; [ $ret -ne 0 ] && echo "$ret ")\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]'
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -115,9 +89,6 @@ PROMPT_DIRTRIM=3
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -149,19 +120,10 @@ fi
 # ---- Customizations WRT default Ubuntu 16.04 .bashrc ----
 
 # Use vim as default editor
-if [ -x /usr/bin/nvim ]; then
-    export EDITOR=/usr/bin/nvim
-elif [ -x /usr/bin/vim ]; then
+if [ -x /usr/bin/vim ]; then
     export EDITOR=/usr/bin/vim
 elif [ -x /usr/bin/vi ]; then
     export EDITOR=/usr/bin/vi
-fi
-
-# Autojump
-if [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]]; then
-    . $HOME/.autojump/etc/profile.d/autojump.sh
-elif [ -f /usr/share/autojump/autojump.bash ]; then
-    . /usr/share/autojump/autojump.bash
 fi
 
 # Colorize diff and preserve colors in less input.  apt-get install colordiff
@@ -173,14 +135,6 @@ alias less='less -R'
 # Most terminals support color schemes.  Tested with xterm and st.
 [ -n "$PS1" ] && [ -s $HOME/.config/base16-shell/colorscheme.sh ] \
     && . $HOME/.config/base16-shell/colorscheme.sh
-
-# Tab completion for git-icdiff
-#if which git-icdiff >/dev/null 2>&1; then
-#_git_icdiff()
-#{
-#    __gitcomp_nl "$(__git_refs)"
-#}
-#fi
 
 # Add user's bin dir to end of PATH, removing all pre-existing occurrences that
 # may have been added by earlier scripts (.xession, /etc/profile, etc.).
@@ -236,13 +190,11 @@ vac() {
   source ${1}/bin/activate
 }
 
-# set and export FIIN_PREFIX
-setfp() {
-  export FIIN_PREFIX=$(readlink -f $1);
-}
-
 # binding for moving around the command line
 bind '"\C-j": backward-word'
 bind '"\C-k": kill-word'
 bind '"\C-l": forward-word'
 
+# source any system-specific configuration
+# MAKE SURE THIS LINE IS LAST!!!
+[ -f ~/.bashrc_extra ] && source ~/.bashrc_extra

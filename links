@@ -1,4 +1,4 @@
-configs/bashrc ~/.bashrc link
+configs/bashrc ~/.bashrc link_backup
 configs/tmux.conf ~/.tmux.conf link
 configs/vimrc ~/.vimrc link
 configs/gitconfig ~/.gitconfig link
