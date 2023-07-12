@@ -1,4 +1,12 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/data/temp/qucs-git/qucs-core'
-let g:netrw_dirhist_2='/data/electronics/spice_models'
+let g:netrw_dirhistcnt =6
+let g:netrw_dirhist_6='/Users/samhedin/code/terraform-modules/aws/aurora_cluster'
+let g:netrw_dirhist_5='/Users/samhedin/code/ansible/roles/named/files/var/named/dynamic/zones'
+let g:netrw_dirhist_4='/Users/samhedin/code/ansible/roles/named/tasks'
+let g:netrw_dirhist_3='/Users/samhedin/code/ansible/roles/named'
+let g:netrw_dirhist_2='/Users/samhedin/code/ansible/roles/named/tasks'
+let g:netrw_dirhist_1='/Users/samhedin/code/ansible/roles/named/files/var/named/dynamic'
+let g:netrw_dirhist_0='/Users/samhedin/code/terraform-configs/staging-east/app-db'
+let g:netrw_dirhist_9='/Users/samhedin/code/terraform-configs/staging-east/app-db/test-monitoring'
+let g:netrw_dirhist_8='/Users/samhedin/code/terraform-modules/aws/aurora_cluster'
+let g:netrw_dirhist_7='/Users/samhedin/code/infra-configs/MySQL'

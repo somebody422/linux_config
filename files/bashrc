@@ -61,7 +61,6 @@ esac
 
 # Add current VIRTUAL_ENV to the prompt.  man virtualenv
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-_PS1='${VIRTUAL_ENV:+(${VIRTUAL_ENV##*/}) }'$_PS1
 
 
 # Git branch indicator in PS1 prompt
