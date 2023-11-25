@@ -2,6 +2,10 @@
 
 syntax on
 
+" Mysterious fix to prevent linux term from going into Replace mode
+" https://superuser.com/questions/1284561/why-is-vim-starting-in-replace-mode
+set t_u7=
+
 " linux_config vim runtimepath
 set runtimepath+=~/linux_config/vim
 " Plugins
@@ -36,7 +40,7 @@ hi StatusLine ctermbg=White ctermfg=DarkGrey
 " Put a line under the cursor
 set cursorline
 set cursorcolumn
-hi CursorColumn ctermbg=lightgrey ctermfg=black
+"hi CursorColumn ctermbg=lightgrey ctermfg=black
 " Bold the line number
 "hi cursorLineNR cterm=bold
 

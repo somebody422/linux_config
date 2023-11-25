@@ -63,23 +63,17 @@ esac
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 _PS1='${VIRTUAL_ENV:+(${VIRTUAL_ENV##*/}) }'$_PS1
 
-# Add git info to the command line, if applicable
-GIT_SH_PROMPT=~/.git-sh-prompt
-[ ! -f $GIT_SH_PROMPT ] && GIT_SH_PROMPT=/usr/lib/git-core/git-sh-prompt
-[ ! -f $GIT_SH_PROMPT ] && GIT_SH_PROMPT=/usr/share/git/git-prompt.sh
-if [ -f $GIT_SH_PROMPT ]; then
-  . $GIT_SH_PROMPT
-  export GIT_PS1_SHOWDIRTYSTATE=1
-  export GIT_PS1_SHOWUNTRACKEDFILES=1
-  export GIT_PS1_SHOWCOLORHINTS=1
-  PROMPT_COMMAND='printf "\n\a" && __git_ps1 "$_PS1" "\\n$ "'
-fi
 
-# Initialize PS1 for shells that don't use PROMPT_COMMAND
-if [ -f $GIT_SH_PROMPT ]; then
-    PS1="$_PS1$(__git_ps1)\$ "
+# Git branch indicator in PS1 prompt
+if [ -f ~/.git-prompt.sh ]; then
+  . ~/.git-prompt.sh
+  # Disable the * and + changed symbols. These are generally useful, but massively slow down the prompt in large repos like git and linux
+  export GIT_PS1_SHOWDIRTYSTATE=
+  # Disable showing & when untracked files exist in the repo
+  export GIT_PS1_SHOWUNTRACKEDFILES=
+  export PS1="${_PS1}\e[0;32m\$(__git_ps1 \" (%s)\")\e[1;37m\n\$ "
 else
-    PS1="$_PS1\$ "
+  export PS1="${_PS1}\n\$ "
 fi
 
 # Limit the length of prompt consumed by \w or \W substitution
