@@ -70,7 +70,7 @@ if [ -f ~/.git-prompt.sh ]; then
   export GIT_PS1_SHOWDIRTYSTATE=
   # Disable showing & when untracked files exist in the repo
   export GIT_PS1_SHOWUNTRACKEDFILES=
-  export PS1="${_PS1}\e[0;32m\$(__git_ps1 \" (%s)\")\e[1;37m\n\$ "
+  export PS1="${_PS1}\e[0;32m\$(__git_ps1 \" (%s)\")\e[m\n\$ "
 else
   export PS1="${_PS1}\n\$ "
 fi
