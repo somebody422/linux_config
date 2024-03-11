@@ -80,8 +80,7 @@ let g:ctrlp_custom_ignore = 'venv/'
 set tags=tags,**/build/*/tags
 
 "====    My  mapping changes:    ====
-" * the 'hjkl' movement keys are shifted to 'jkl;'
-" * <C-k> and <C-l> scroll up and down the page
+" * <C-k> and <C-j> scroll up and down the page
 " * 9 moves cursor to beginning of the line
 " * '<Leader>e' moves forward a word and 'w' moves back a word. I don't worry about start/end word boundries
 " * 'b' is CtrlP buffer mode, 'h' is CtrlP search
@@ -96,19 +95,6 @@ hi DiffChange ctermbg=White ctermfg=57 cterm=reverse
 hi DiffDelete ctermbg=White ctermfg=160 cterm=reverse
 hi DiffText ctermbg=White ctermfg=Black cterm=reverse
 
-" I prefer jkl; for moving the cursor
-nnoremap ; l
-nnoremap l k
-nnoremap k j
-nnoremap j h
-nnoremap h ;
-" Visual mode movement jkl; remaps:
-vnoremap ; l
-vnoremap l k
-vnoremap k j
-vnoremap j h
-vnoremap h ;
-
 " Insert newline without going to insert mode
 nnoremap <CR> O
 
@@ -120,23 +106,19 @@ nnoremap <Leader>e :Ex<CR>
 
 " ctrlp shortcuts
 nnoremap b :CtrlPBuffer<CR>
-nnoremap h :CtrlP<CR>
-" Shortcut for switching buffers
-"nnoremap b :ls<CR>:b 
+nnoremap B :CtrlP<CR>
 
 " Some convenient buffer scrolling
 nnoremap <C-k> 6<C-e>
-nnoremap <C-l> 6<C-y>
-vnoremap <C-k> 6<C-e>
-vnoremap <C-l> 6<C-y>
+nnoremap <C-k> 6<C-y>
+vnoremap <C-j> 6<C-e>
+vnoremap <C-k> 6<C-y>
 " C-d is move up half screen, C-a is move down
-nnoremap <C-a> <C-u>
-vnoremap <C-a> <C-u>
-
-" quick-fix window
-nnoremap <C-n> :cnext<CR>
-nnoremap <C-m> :cprevious<CR>
-nnoremap <C-b> :copen<CR>
+"nnoremap <C-a> <C-u>
+"vnoremap <C-a> <C-u>
+" C-d is move down half screen, C-f is move up
+nnoremap <C-f> <C-u>
+vnoremap <C-f> <C-u>
 
 nnoremap w b
 
@@ -157,13 +139,3 @@ nnoremap <C-w>h <C-w>s
 " When already in normal mode, 'esc' will call 'noh' (no highlighting), which
 " clears the last highlight
 nnoremap <esc> :noh<CR><esc>
-
-
-"" A hacky fix found here: https://stackoverflow.com/questions/51388353/vim-changes-into-replace-mode-on-startup
-"" DONT push this!!
-" FIX: ssh from wsl starting with REPLACE mode
-" https://stackoverflow.com/a/11940894
-if $TERM =~ 'xterm-256color'
-  set noek
-endif
-
