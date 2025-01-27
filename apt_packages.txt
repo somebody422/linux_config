@@ -1,6 +1,0 @@
-# To install all packages here, run following command:
-# sudo apt install -y $(cat apt_packages.txt)
-git
-fzf
-vim
-tmux

@@ -1,6 +1,0 @@
-files/git-prompt.sh ~/.git-prompt.sh link
-files/bashrc ~/.bashrc link_backup
-files/tmux.conf ~/.tmux.conf link
-files/vimrc ~/.vimrc link
-files/gitconfig ~/.gitconfig link
-

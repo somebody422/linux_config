@@ -7,9 +7,9 @@ syntax on
 set t_u7=
 
 " linux_config vim runtimepath
-set runtimepath+=~/linux_config/vim
+set runtimepath+=~/linux_config/files/vim
 " Plugins
-set runtimepath+=~/linux_config/vim-plugins/ctrlp
+set runtimepath+=~/linux_config/files/vim-plugins/ctrlp
 
 " Change leader key
 nnoremap <SPACE> <Nop>
@@ -109,10 +109,10 @@ nnoremap b :CtrlPBuffer<CR>
 nnoremap B :CtrlP<CR>
 
 " Some convenient buffer scrolling
-nnoremap <C-k> 6<C-e>
 nnoremap <C-k> 6<C-y>
-vnoremap <C-j> 6<C-e>
 vnoremap <C-k> 6<C-y>
+nnoremap <C-j> 6<C-e>
+vnoremap <C-j> 6<C-e>
 " C-d is move up half screen, C-a is move down
 "nnoremap <C-a> <C-u>
 "vnoremap <C-a> <C-u>

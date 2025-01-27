@@ -1,0 +1,12 @@
+[
+  {
+    "target_path": "files/testfile",
+    "link_path": "/tmp/link-testfile",
+    "backup": false
+  },
+  {
+    "target_path": "files/testfile",
+    "link_path": "/tmp/link-testfile2",
+    "backup": false
+  }
+]
